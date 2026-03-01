@@ -28,7 +28,7 @@ def _():
 
 @app.cell
 def _(pd):
-    df_raw = pd.read_csv("../data/raw/neo_task.csv")
+    df_raw = pd.read_csv("./data/raw/neo_task.csv")
     df_raw
     return (df_raw,)
 
@@ -176,7 +176,7 @@ def _(df_clean, plt, sns):
 @app.cell
 def _(df_clean):
     def save_planets(df):
-        save_path = "../data/processed/planets.csv"
+        save_path = "./data/processed/planets.csv"
 
         df.to_csv(save_path, index=False)
 

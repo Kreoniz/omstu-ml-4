@@ -5,5 +5,3 @@ models/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !models/.gitkeep
-
-**/__marimo__/

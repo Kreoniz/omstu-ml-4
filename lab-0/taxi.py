@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.20.2"
-app = marimo.App(width="medium")
+app = marimo.App(width="medium", auto_download=["html", "ipynb"])
 
 
 @app.cell(hide_code=True)
@@ -55,7 +55,7 @@ def _():
 
 @app.cell
 def _(pd):
-    df_raw = pd.read_csv("../data/raw/trip_duration_task.csv")
+    df_raw = pd.read_csv("./data/raw/trip_duration_task.csv")
     df_raw
     return (df_raw,)
 
@@ -360,14 +360,6 @@ def _(df_filtered, plt):
     return
 
 
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    Видим, что в датасете также есть поездки до
-    """)
-    return
-
-
 @app.cell
 def _(df_filtered):
     df_filtered
@@ -393,7 +385,7 @@ def _(df_filtered):
 
 @app.cell
 def _(df_final):
-    save_path = "../data/processed/taxi.csv"
+    save_path = "./data/processed/taxi.csv"
     df_final.to_csv(save_path, index=False)
     return
 
