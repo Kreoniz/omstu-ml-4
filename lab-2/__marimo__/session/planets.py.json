@@ -1,0 +1,203 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.20.2"
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "f240018a49c38285760ff189a05780e7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"_1\">\u041a\u043b\u0430\u0441\u0441\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f. \u041f\u043b\u0430\u043d\u0435\u0442\u044b</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "94894390aeed4c742bf61643b7c32c70",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "5dbffdf267e38975f7232ff613576658",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='bkHC-0' random-id='acad9662-5684-6626-e47f-e1ee0af6c513'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;est_diameter_min&#92;&quot;:0.0160160338,&#92;&quot;est_diameter_max&#92;&quot;:0.0358129403,&#92;&quot;relative_velocity&#92;&quot;:56014.0785167728,&#92;&quot;miss_distance&#92;&quot;:1024332.998091984,&#92;&quot;absolute_magnitude&#92;&quot;:26.1,&#92;&quot;hazardous&#92;&quot;:0},{&#92;&quot;est_diameter_min&#92;&quot;:0.0305179233,&#92;&quot;est_diameter_max&#92;&quot;:0.0682401509,&#92;&quot;relative_velocity&#92;&quot;:7864.3480603763,&#92;&quot;miss_distance&#92;&quot;:32681860.626811653,&#92;&quot;absolute_magnitude&#92;&quot;:24.7,&#92;&quot;hazardous&#92;&quot;:0},{&#92;&quot;est_diameter_min&#92;&quot;:0.0555334912,&#92;&quot;est_diameter_max&#92;&quot;:0.1241766613,&#92;&quot;relative_velocity&#92;&quot;:55257.544507938095,&#92;&quot;miss_distance&#92;&quot;:65386361.84406273,&#92;&quot;absolute_magnitude&#92;&quot;:23.4,&#92;&quot;hazardous&#92;&quot;:0},{&#92;&quot;est_diameter_min&#92;&quot;:0.0192555078,&#92;&quot;est_diameter_max&#92;&quot;:0.0430566244,&#92;&quot;relative_velocity&#92;&quot;:41531.4047220919,&#92;&quot;miss_distance&#92;&quot;:12607957.98814278,&#92;&quot;absolute_magnitude&#92;&quot;:25.7,&#92;&quot;hazardous&#92;&quot;:0},{&#92;&quot;est_diameter_min&#92;&quot;:0.1394938228999999,&#92;&quot;est_diameter_max&#92;&quot;:0.3119176705,&#92;&quot;relative_velocity&#92;&quot;:67639.394481165,&#92;&quot;miss_distance&#92;&quot;:71305897.32038653,&#92;&quot;absolute_magnitude&#92;&quot;:21.4,&#92;&quot;hazardous&#92;&quot;:0},{&#92;&quot;est_diameter_min&#92;&quot;:0.046190746,&#92;&quot;est_diameter_max&#92;&quot;:0.1032856481,&#92;&quot;relative_velocity&#92;&quot;:18933.8758008518,&#92;&quot;miss_distance&#92;&quot;:28470829.52595103,&#92;&quot;absolute_magnitude&#92;&quot;:23.8,&#92;&quot;hazardous&#92;&quot;:0},{&#92;&quot;est_diameter_min&#92;&quot;:0.1160259082,&#92;&quot;est_diameter_max&#92;&quot;:0.2594418179,&#92;&quot;relative_velocity&#92;&quot;:43184.4027322403,&#92;&quot;miss_distance&#92;&quot;:34184167.48127032,&#92;&quot;absolute_magnitude&#92;&quot;:21.8,&#92;&quot;hazardous&#92;&quot;:0},{&#92;&quot;est_diameter_min&#92;&quot;:0.0211132445,&#92;&quot;est_diameter_max&#92;&quot;:0.0472106499,&#92;&quot;relative_velocity&#92;&quot;:38064.8022870658,&#92;&quot;miss_distance&#92;&quot;:26531535.95370383,&#92;&quot;absolute_magnitude&#92;&quot;:25.5,&#92;&quot;hazardous&#92;&quot;:0},{&#92;&quot;est_diameter_min&#92;&quot;:0.2210828104,&#92;&quot;est_diameter_max&#92;&quot;:0.4943561925999999,&#92;&quot;relative_velocity&#92;&quot;:33736.8599640077,&#92;&quot;miss_distance&#92;&quot;:56706616.83255329,&#92;&quot;absolute_magnitude&#92;&quot;:20.4,&#92;&quot;hazardous&#92;&quot;:0},{&#92;&quot;est_diameter_min&#92;&quot;:0.2424124811,&#92;&quot;est_diameter_max&#92;&quot;:0.5420507863,&#92;&quot;relative_velocity&#92;&quot;:56188.2155883955,&#92;&quot;miss_distance&#92;&quot;:61754410.91839975,&#92;&quot;absolute_magnitude&#92;&quot;:20.2,&#92;&quot;hazardous&#92;&quot;:0}]&quot;' data-total-rows='90836' data-total-columns='6' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;est_diameter_min&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;est_diameter_max&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;relative_velocity&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;miss_distance&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;absolute_magnitude&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;hazardous&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;df&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "21f55563c72eb86321e09a160f6ec227",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='lEQa-0' random-id='f9d7ff91-2326-234c-91c8-7fbd11e47bc0'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;hazardous&#92;&quot;:0,&#92;&quot;count&#92;&quot;:81996},{&#92;&quot;hazardous&#92;&quot;:1,&#92;&quot;count&#92;&quot;:8840}]&quot;' data-total-rows='2' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;count&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;hazardous&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;download&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "e63766560f56fc57e08c1a5675a4398e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='PKri-0' random-id='1769457e-e771-0666-2291-acee615c1bc4'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;hazardous&#92;&quot;:0,&#92;&quot;count&#92;&quot;:81996},{&#92;&quot;hazardous&#92;&quot;:1,&#92;&quot;count&#92;&quot;:81996}]&quot;' data-total-rows='2' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;count&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;hazardous&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;download&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "614323f0d3858a489291f47325c8f4f6",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"_1\">\u0420\u0430\u0437\u0434\u0435\u043b\u0435\u043d\u0438\u0435 \u0434\u0430\u043d\u043d\u044b\u0445 \u043d\u0430 \u043e\u0431\u0443\u0447\u0430\u044e\u0449\u0443\u044e \u0438 \u0442\u0435\u0441\u0442\u043e\u0432\u0443\u044e \u0432\u044b\u0431\u043e\u0440\u043a\u0438</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "4ff14bc4cc8b98439d7498ea7eb54777",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"hold-out\">Hold out</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "860e6360a77b98dc5ca5079730c81917",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "08d03e99426d981f1164ab8f1bca4989",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"kfold\">KFold</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "b6a9e1c4c2b7d9a1fc690538b006a6b5",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "emfo",
+      "code_hash": "23d27fd5d8ae2afded2d37f957c998fb",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"_1\">\u0410\u043b\u0433\u043e\u0440\u0438\u0442\u043c\u044b \u043a\u043b\u0430\u0441\u0441\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0438</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Hstk",
+      "code_hash": "b6b5c7c15d87949b879d3cbb52c4d479",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"_1\">\u041b\u043e\u0433\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043a\u0430\u044f \u0440\u0435\u0433\u0440\u0435\u0441\u0441\u0438\u044f</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "325e3c354538e3f5d913395498bf2360",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<pre class='text-xs'>&#x27;              precision    recall  f1-score   support\\n\\n           0       0.63      0.37      0.47     16400\\n           1       0.55      0.78      0.65     16399\\n\\n    accuracy                           0.58     32799\\n   macro avg       0.59      0.58      0.56     32799\\nweighted avg       0.59      0.58      0.56     32799\\n&#x27;</pre>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "iLit",
+      "code_hash": null,
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    }
+  ]
+}
