@@ -5,3 +5,6 @@ models/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !models/.gitkeep
+
+catboost_info/*
+logs.log
