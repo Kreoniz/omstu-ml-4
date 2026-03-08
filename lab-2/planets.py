@@ -1,7 +1,7 @@
 import marimo
 
-__generated_with = "0.20.2"
-app = marimo.App(width="medium")
+__generated_with = "0.20.4"
+app = marimo.App(width="medium", auto_download=["html", "ipynb"])
 
 
 @app.cell
@@ -255,7 +255,7 @@ def _(KFold, LogisticRegression, get_report, transformed_X, transformed_y):
             lr = LogisticRegression(max_iter=1000)
 
             lr.fit(X_train, y_train)
-        
+
             y_pred_train = lr.predict(X_train)
             y_pred_test = lr.predict(X_test)
 
@@ -475,17 +475,17 @@ def _(KFold, KNeighborsClassifier, get_report, transformed_X, transformed_y):
         for train_index, test_index in kFold.split(X):
             X_train, X_test = X.iloc[train_index], X.iloc[test_index]
             y_train, y_test = y.iloc[train_index], y.iloc[test_index]
-    
+
             classifier = KNeighborsClassifier()
-        
+
             classifier.fit(X_train, y_train)
-    
+
             y_pred_train = classifier.predict(X_train)
             y_pred_test = classifier.predict(X_test)
-    
+
             fold_report = get_report(y_train, y_pred_train, y_test, y_pred_test)
             fold_reports.append(fold_report)
-    
+
         return fold_reports
 
 
@@ -588,12 +588,12 @@ def _(X_kf_test, X_kf_train, get_report, y_kf_test, y_kf_train):
     def run_multinomial_nb(X_train, y_train, X_test, y_test):
         classifier = MultinomialNB()
         classifier.fit(X_train, y_train)
-    
+
         y_pred_train = classifier.predict(X_train)
         y_pred_test = classifier.predict(X_test)
-    
+
         return get_report(y_train, y_pred_train, y_test, y_pred_test)
-    
+
     run_multinomial_nb(X_kf_train, y_kf_train, X_kf_test, y_kf_test)
     return
 
@@ -712,11 +712,6 @@ def _(
         return get_report(y_train, predictions_train, y_test, predictions_test)
 
     run_my_knn_classifier(X_holdout_train.sample(1000), y_holdout_train.sample(1000), X_holdout_test.sample(1000), y_holdout_test.sample(1000))    
-    return
-
-
-@app.cell
-def _():
     return
 
 

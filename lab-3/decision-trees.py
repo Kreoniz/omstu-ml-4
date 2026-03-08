@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.20.4"
-app = marimo.App(width="medium")
+app = marimo.App(width="medium", auto_download=["ipynb", "html"])
 
 
 @app.cell
@@ -1246,16 +1246,12 @@ def _(
     return
 
 
-@app.cell
-def _(
-    X_neo_test,
-    X_neo_train,
-    run_my_classification_cart,
-    y_neo_test,
-    y_neo_train,
-):
-    run_my_classification_cart(X_neo_train[:5000], y_neo_train[:5000], X_neo_test[:5000], y_neo_test[:5000], max_depth=10)
-    return
+app._unparsable_cell(
+    r"""
+        run_my_classification_cart(X_neo_train[:5000], y_neo_train[:5000], X_neo_test[:5000], y_neo_test[:5000], max_depth=10)
+    """,
+    name="_"
+)
 
 
 if __name__ == "__main__":
