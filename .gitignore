@@ -8,3 +8,5 @@ models/*
 
 catboost_info/*
 logs.log
+
+__pycache__
