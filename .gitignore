@@ -5,9 +5,14 @@ models/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !models/.gitkeep
+!data/processed/planets.csv
+!data/raw/neo_task.csv
+!models/*
 
 catboost_info/*
 logs.log
 
 __pycache__
 .ipynb_checkpoints/
+
+secrets.toml
