@@ -657,7 +657,13 @@ def _(Isomap, X_taxi_scaled):
 
 @app.cell
 def _(X_taxi_isomap, plt, y_taxi):
-    plt.scatter(X_taxi_isomap[:,0], X_taxi_isomap[:,1], c=y_taxi[:10000])
+    plt.scatter(X_taxi_isomap[:,0], X_taxi_isomap[:,1], c=y_taxi[:10000], alpha=0.7)
+    return
+
+
+@app.cell
+def _(X_taxi_isomap, run_regression, y_taxi):
+    run_regression(X_taxi_isomap, y_taxi[:10000])
     return
 
 
@@ -670,7 +676,13 @@ def _(Isomap, X_neo_scaled):
 
 @app.cell
 def _(X_neo_isomap, plt, y_neo):
-    plt.scatter(X_neo_isomap[:,0], X_neo_isomap[:,1], c=y_neo[:10000])
+    plt.scatter(X_neo_isomap[:,0], X_neo_isomap[:,1], c=y_neo[:10000], alpha=0.7)
+    return
+
+
+@app.cell
+def _(X_neo_isomap, run_classification, y_neo):
+    run_classification(X_neo_isomap, y_neo[:10000])
     return
 
 
@@ -753,8 +765,8 @@ def _(KernelPCA, SEED, np, plt, run_classification, run_regression):
         task='classification', title=None
     ):
         if sample_size is None or sample_size >= len(X):
-            X_sample = X.iloc if hasattr(X, "iloc") else X
-            y_sample = y.iloc if hasattr(y, "iloc") else y
+            X_sample = X
+            y_sample = y
         else:
             rng = np.random.default_rng(SEED)
             sample_idx = rng.choice(len(X), sample_size, replace=False)
@@ -793,7 +805,7 @@ def _(KernelPCA, SEED, np, plt, run_classification, run_regression):
 def _(X_taxi_scaled, plot_kernelpca_random_sample, y_taxi):
     plot_kernelpca_random_sample(
         X_taxi_scaled, y_taxi,
-        sample_size=10000,
+        sample_size=20000,
         kernel='poly',
         task='regression',
         title='Taxi KernelPCA poly'
@@ -805,7 +817,7 @@ def _(X_taxi_scaled, plot_kernelpca_random_sample, y_taxi):
 def _(X_taxi_scaled, plot_kernelpca_random_sample, y_taxi):
     plot_kernelpca_random_sample(
         X_taxi_scaled, y_taxi,
-        sample_size=10000,
+        sample_size=20000,
         kernel='rbf',
         task='regression',
         title='Taxi KernelPCA rbf'
@@ -817,7 +829,7 @@ def _(X_taxi_scaled, plot_kernelpca_random_sample, y_taxi):
 def _(X_taxi_scaled, plot_kernelpca_random_sample, y_taxi):
     plot_kernelpca_random_sample(
         X_taxi_scaled, y_taxi,
-        sample_size=10000,
+        sample_size=20000,
         kernel='sigmoid',
         task='regression',
         title='Taxi KernelPCA sigmoid'
@@ -829,7 +841,7 @@ def _(X_taxi_scaled, plot_kernelpca_random_sample, y_taxi):
 def _(X_neo_scaled, plot_kernelpca_random_sample, y_neo):
     plot_kernelpca_random_sample(
         X_neo_scaled, y_neo,
-        sample_size=10000,
+        sample_size=20000,
         kernel='poly',
         task='classification',
         title='NEO KernelPCA poly'
@@ -841,7 +853,7 @@ def _(X_neo_scaled, plot_kernelpca_random_sample, y_neo):
 def _(X_neo_scaled, plot_kernelpca_random_sample, y_neo):
     plot_kernelpca_random_sample(
         X_neo_scaled, y_neo,
-        sample_size=10000,
+        sample_size=20000,
         kernel='rbf',
         task='classification',
         title='NEO KernelPCA rbf'
@@ -853,7 +865,7 @@ def _(X_neo_scaled, plot_kernelpca_random_sample, y_neo):
 def _(X_neo_scaled, plot_kernelpca_random_sample, y_neo):
     plot_kernelpca_random_sample(
         X_neo_scaled, y_neo,
-        sample_size=10000,
+        sample_size=20000,
         kernel='sigmoid',
         task='classification',
         title='NEO KernelPCA sigmoid'
