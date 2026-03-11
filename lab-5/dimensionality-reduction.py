@@ -23,16 +23,19 @@ def _():
 
     from sklearn.preprocessing import StandardScaler
 
-    from sklearn.manifold import TSNE
+    from sklearn.manifold import TSNE, Isomap
 
     from sklearn.feature_selection import VarianceThreshold, SelectKBest, RFE
     from sklearn.decomposition import PCA, KernelPCA
+    import umap
     import warnings
 
     return (
         DecisionTreeClassifier,
         DecisionTreeRegressor,
         HistGradientBoostingRegressor,
+        Isomap,
+        KernelPCA,
         PCA,
         RFE,
         RandomForestClassifier,
@@ -56,6 +59,7 @@ def _():
         roc_auc_score,
         root_mean_squared_error,
         train_test_split,
+        umap,
         warnings,
     )
 
@@ -586,27 +590,315 @@ def _(mo):
 
 
 @app.cell
-def _(TSNE, X_taxi_scaled):
-    tsne_taxi = TSNE(n_components=2)
-    X_taxi_tsne = tsne_taxi.fit_transform(X_taxi_scaled[:10000])
-    return (X_taxi_tsne,)
+def _(SEED, TSNE, np, plt):
+    def plot_tsne_random_sample(X, y, sample_size=10000, title=None, func=None):
+        rng = np.random.default_rng(SEED)
+        sample_idx = rng.choice(len(X), sample_size, replace=False)
+
+        if hasattr(X, "iloc"):
+            X_sample = X.iloc[sample_idx]
+        else:
+            X_sample = X[sample_idx]
+
+        if hasattr(y, "iloc"):
+            y_sample = y.iloc[sample_idx]
+        else:
+            y_sample = y[sample_idx]
+
+        tsne = TSNE(n_components=2, random_state=SEED)
+
+        X_tsne = tsne.fit_transform(X_sample)
+
+        plt.figure(figsize=(10,7))
+        plt.scatter(
+            X_tsne[:,0],
+            X_tsne[:,1],
+            c=y_sample,
+            cmap="tab10",
+            s=5
+        )
+
+        if title:
+            plt.title(title)
+
+        plt.show()
+
+        return func(X_tsne, y_sample)
+
+    return (plot_tsne_random_sample,)
 
 
 @app.cell
-def _(X_taxi_tsne, plt, y_taxi):
-    plt.scatter(X_taxi_tsne[:, 0], X_taxi_tsne[:, 1], c=y_taxi[:10000])
+def _(X_taxi_scaled, plot_tsne_random_sample, run_regression, y_taxi):
+    plot_tsne_random_sample(X_taxi_scaled, y_taxi, func=run_regression)
     return
 
 
 @app.cell
-def _(X_taxi_tsne, run_regression, y_taxi):
-    run_regression(X_taxi_tsne, y_taxi[:10000])
+def _(X_neo_scaled, plot_tsne_random_sample, run_classification, y_neo):
+    plot_tsne_random_sample(X_neo_scaled, y_neo, func=run_classification)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Isomap
+    """)
     return
 
 
 @app.cell
-def _():
- 
+def _(Isomap, X_taxi_scaled):
+    isomap_taxi = Isomap(n_components=2)
+    X_taxi_isomap = isomap_taxi.fit_transform(X_taxi_scaled[:10000])
+    return (X_taxi_isomap,)
+
+
+@app.cell
+def _(X_taxi_isomap, plt, y_taxi):
+    plt.scatter(X_taxi_isomap[:,0], X_taxi_isomap[:,1], c=y_taxi[:10000])
+    return
+
+
+@app.cell
+def _(Isomap, X_neo_scaled):
+    isomap_neo = Isomap(n_components=2)
+    X_neo_isomap = isomap_neo.fit_transform(X_neo_scaled[:10000])
+    return (X_neo_isomap,)
+
+
+@app.cell
+def _(X_neo_isomap, plt, y_neo):
+    plt.scatter(X_neo_isomap[:,0], X_neo_isomap[:,1], c=y_neo[:10000])
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### UMAP
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(SEED, np, plt, umap):
+    def plot_umap_random_sample(X, y, sample_size=10000, title=None, func=None):
+        rng = np.random.default_rng(SEED)
+        sample_idx = rng.choice(len(X), sample_size, replace=False)
+
+        if hasattr(X, "iloc"):
+            X_sample = X.iloc[sample_idx]
+        else:
+            X_sample = X[sample_idx]
+
+        if hasattr(y, "iloc"):
+            y_sample = y.iloc[sample_idx]
+        else:
+            y_sample = y[sample_idx]
+
+        reducer = umap.UMAP(
+            n_neighbors=15,
+            min_dist=0.1,
+            n_components=2,
+            random_state=SEED
+        )
+
+        embedding = reducer.fit_transform(X_sample)
+
+        plt.figure(figsize=(10,7))
+        plt.scatter(
+            embedding[:,0],
+            embedding[:,1],
+            c=y_sample,
+            cmap="tab10",
+            s=5
+        )
+
+        if title:
+            plt.title(title)
+
+        plt.show()
+
+        return func(embedding, y_sample)
+
+    return (plot_umap_random_sample,)
+
+
+@app.cell
+def _(X_taxi_scaled, plot_umap_random_sample, run_regression, y_taxi):
+    plot_umap_random_sample(X_taxi_scaled, y_taxi, sample_size=10000, func=run_regression)
+    return
+
+
+@app.cell
+def _(X_neo_scaled, plot_umap_random_sample, run_classification, y_neo):
+    plot_umap_random_sample(X_neo_scaled, y_neo, sample_size=10000, func=run_classification)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### KernelPCA
+    """)
+    return
+
+
+@app.cell
+def _(KernelPCA, SEED, np, plt, run_classification, run_regression):
+    def plot_kernelpca_random_sample(
+        X, y, sample_size=None, kernel='rbf', 
+        task='classification', title=None
+    ):
+        if sample_size is None or sample_size >= len(X):
+            X_sample = X.iloc if hasattr(X, "iloc") else X
+            y_sample = y.iloc if hasattr(y, "iloc") else y
+        else:
+            rng = np.random.default_rng(SEED)
+            sample_idx = rng.choice(len(X), sample_size, replace=False)
+            X_sample = X.iloc[sample_idx] if hasattr(X, "iloc") else X[sample_idx]
+            y_sample = y.iloc[sample_idx] if hasattr(y, "iloc") else y[sample_idx]
+
+        kpca = KernelPCA(n_components=2, kernel=kernel, random_state=SEED)
+        X_kpca = kpca.fit_transform(X_sample)
+
+        plt.figure(figsize=(10,7))
+        plt.scatter(
+            X_kpca[:, 0],
+            X_kpca[:, 1],
+            c=y_sample if task=='classification' else 'blue',
+            cmap='tab10' if task=='classification' else None,
+            s=5,
+            alpha=0.7
+        )
+        if title:
+            plt.title(f"KernelPCA ({kernel}) - {title}")
+        plt.show()
+
+        if task == 'classification':
+            result = run_classification(X_kpca, y_sample)
+        elif task == 'regression':
+            result = run_regression(X_kpca, y_sample)
+        else:
+            raise ValueError("task must be 'classification' or 'regression'")
+
+        return result
+
+    return (plot_kernelpca_random_sample,)
+
+
+@app.cell
+def _(X_taxi_scaled, plot_kernelpca_random_sample, y_taxi):
+    plot_kernelpca_random_sample(
+        X_taxi_scaled, y_taxi,
+        sample_size=10000,
+        kernel='poly',
+        task='regression',
+        title='Taxi KernelPCA poly'
+    )
+    return
+
+
+@app.cell
+def _(X_taxi_scaled, plot_kernelpca_random_sample, y_taxi):
+    plot_kernelpca_random_sample(
+        X_taxi_scaled, y_taxi,
+        sample_size=10000,
+        kernel='rbf',
+        task='regression',
+        title='Taxi KernelPCA rbf'
+    )
+    return
+
+
+@app.cell
+def _(X_taxi_scaled, plot_kernelpca_random_sample, y_taxi):
+    plot_kernelpca_random_sample(
+        X_taxi_scaled, y_taxi,
+        sample_size=10000,
+        kernel='sigmoid',
+        task='regression',
+        title='Taxi KernelPCA sigmoid'
+    )
+    return
+
+
+@app.cell
+def _(X_neo_scaled, plot_kernelpca_random_sample, y_neo):
+    plot_kernelpca_random_sample(
+        X_neo_scaled, y_neo,
+        sample_size=10000,
+        kernel='poly',
+        task='classification',
+        title='NEO KernelPCA poly'
+    )
+    return
+
+
+@app.cell
+def _(X_neo_scaled, plot_kernelpca_random_sample, y_neo):
+    plot_kernelpca_random_sample(
+        X_neo_scaled, y_neo,
+        sample_size=10000,
+        kernel='rbf',
+        task='classification',
+        title='NEO KernelPCA rbf'
+    )
+    return
+
+
+@app.cell
+def _(X_neo_scaled, plot_kernelpca_random_sample, y_neo):
+    plot_kernelpca_random_sample(
+        X_neo_scaled, y_neo,
+        sample_size=10000,
+        kernel='sigmoid',
+        task='classification',
+        title='NEO KernelPCA sigmoid'
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## MyPCA
+    """)
+    return
+
+
+@app.cell
+def _(np):
+    def my_pca(X, n_components=2):
+        X_centered = X - np.mean(X, axis=0)
+        cov_matrix = np.cov(X_centered, rowvar=False)
+        eigenvalues, eigenvectors = np.linalg.eig(cov_matrix)
+        idx = np.argsort(eigenvalues)[::-1]
+        principal_components = eigenvectors[:, idx[:n_components]]
+
+        X_reduced = X_centered @ principal_components
+        return np.real(X_reduced)
+
+    return (my_pca,)
+
+
+@app.cell
+def _(X_neo_scaled, my_pca):
+    X_neo_my_pca = my_pca(X_neo_scaled, n_components=2)
+    return (X_neo_my_pca,)
+
+
+@app.cell
+def _(X_neo_my_pca, plt, y_neo):
+    plt.scatter(X_neo_my_pca[:, 0], X_neo_my_pca[:, 1], c=y_neo, alpha=0.7)
+    return
+
+
+@app.cell
+def _(X_neo_pca, plt, y_neo):
+    plt.scatter(X_neo_pca[:, 0], X_neo_pca[:, 1], c=y_neo, alpha=0.7)
     return
 
 
