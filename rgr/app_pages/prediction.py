@@ -99,13 +99,9 @@ def page():
         horizontal=True,
     )
 
-    # ══════════════════════════════════════════════════════════════
-    #  РУЧНОЙ ВВОД — УЛУЧШЕННЫЙ
-    # ══════════════════════════════════════════════════════════════
     if input_mode == "📝 Ручной ввод":
         st.subheader("Характеристики объекта")
 
-        # 1. Создаём 5 полей ввода в 2 колонки
         input_vals = {}
         cols = st.columns(2)
 
@@ -114,22 +110,20 @@ def page():
             s = stats[feat]
 
             with cols[i % 2]:
-                # 2. Свободный ввод — без min/max ограничений
                 value = st.number_input(
                     f"{meta['label']}, {meta['unit']}",
-                    value=meta["default"],  # фиксированный дефолт
-                    step=meta["step"],  # фиксированный шаг
-                    format=meta["format"],  # фиксированный формат
+                    value=meta["default"],
+                    step=meta["step"],
+                    format=meta["format"],
                     help=(
                         f"Мин в данных: {s['min']:.4f} | "
                         f"Макс в данных: {s['max']:.4f} | "
                         f"Среднее: {s['mean']:.4f}"
                     ),
-                    key=f"manual_{feat}",  # уникальный ключ
+                    key=f"manual_{feat}",
                 )
                 input_vals[feat] = value
 
-        # 3. Валидация — только предупреждения, не блокируем
         warnings_list = []
         if input_vals["est_diameter_min"] > input_vals["est_diameter_max"]:
             warnings_list.append("⚠️ Мин. диаметр больше макс. диаметра.")
@@ -140,31 +134,28 @@ def page():
         if input_vals["miss_distance"] < 0:
             warnings_list.append("⚠️ Расстояние не может быть отрицательным.")
         if input_vals["absolute_magnitude"] <= 0:
-            warnings_list.append("⚠️ Абсолютная звёздная величина должна быть > 0.")
+            warnings_list.append(
+                "⚠️ Абсолютная звёздная величина должна быть > 0.")
 
         for w in warnings_list:
             st.warning(w)
 
-        # 4. Кнопка предсказания
         if st.button("🔮 Предсказать", type="primary", use_container_width=True):
-            # Создаём DataFrame с введёнными значениями
             X = pd.DataFrame([input_vals])[FEATURE_COLS]
 
-            # Предсказание
             pred = model.predict(X)[0]
 
-            # Результат
             st.markdown("---")
             if int(pred) == 1:
                 st.error("## ⚠️ Потенциально опасный объект")
-                st.markdown("Модель классифицировала объект как **опасный** для Земли.")
+                st.markdown(
+                    "Модель классифицировала объект как **опасный** для Земли.")
             else:
                 st.success("## ✅ Объект безопасен")
                 st.markdown(
                     "Модель классифицировала объект как **не представляющий угрозы**."
                 )
 
-            # Дополнительно: показываем введённые значения
             with st.expander("📋 Введённые значения"):
                 for feat in FEATURE_COLS:
                     meta = FEATURE_META[feat]
@@ -172,9 +163,6 @@ def page():
                         f"**{meta['label']}**: {input_vals[feat]:.6f} {meta['unit']}"
                     )
 
-    # ══════════════════════════════════════════════════════════════
-    #  CSV
-    # ══════════════════════════════════════════════════════════════
     else:
         st.subheader("Загрузите CSV-файл")
         st.markdown(f"Столбцы: **`{'`**, **`'.join(FEATURE_COLS)}`**")
@@ -195,20 +183,19 @@ def page():
                 st.error(f"Отсутствуют: {', '.join(missing)}")
                 return
 
-            # Галочка: проверить качество модели
             target_col = _find_target(df_in)
             evaluate_mode = False
             if target_col:
                 evaluate_mode = st.checkbox(
-                    f"📊 Оценить качество модели (столбец `{target_col}` найден)",
-                    value=False,
+                    f"📊 Оценить качество модели (столбец `{target_col}` найден)",                    value=False,
                 )
             if st.button("🔮 Предсказать", type="primary", use_container_width=True):
                 X = df_in[FEATURE_COLS].copy()
                 X = X.apply(pd.to_numeric, errors="coerce")
                 nans = X.isna().any(axis=1).sum()
                 if nans:
-                    st.warning(f"{nans} строк с пропусками — заполнены медианой.")
+                    st.warning(
+                        f"{nans} строк с пропусками — заполнены медианой.")
                     X = X.fillna(X.median())
                 preds = model.predict(X)
 
@@ -226,7 +213,6 @@ def page():
                 c2.metric("⚠️ Опасных", n_haz)
                 c3.metric("✅ Безопасных", n - n_haz)
 
-                # Оценка качества
                 if evaluate_mode and target_col:
                     _show_evaluation(df_in[target_col], preds)
 
@@ -271,13 +257,10 @@ def _show_evaluation(y_true, preds):
     c3.metric("Recall", f"{rec:.4f}")
     c4.metric("F1-Score", f"{f1:.4f}")
 
-    # Confusion Matrix
     cm = confusion_matrix(y, p)
 
-    # ПРАВИЛЬНЫЙ ПОРЯДОК: [TN, FP, FN, TP]
     tn, fp, fn, tp = cm.ravel()
 
-    # Создаём таблицу для отображения
     st.markdown("### Confusion Matrix")
 
     col1, col2 = st.columns(2)
@@ -301,7 +284,6 @@ def _show_evaluation(y_true, preds):
         | **Предсказано Hazardous** | **{fp / total * 100:.1f}%** | **{tp / total * 100:.1f}%** |
         """)
 
-    # Визуализация
     fig, ax = plt.subplots(figsize=(6, 4), dpi=150)
     im = ax.imshow(cm, cmap="Blues")
 
@@ -336,14 +318,15 @@ def _show_evaluation(y_true, preds):
         st.pyplot(fig, use_container_width=True)
     plt.close(fig)
 
-    # Интерпретация
     st.markdown("### 📈 Интерпретация")
 
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
         st.metric(
-            "TP (True Positive)", f"{tp:,}", f"{tp / (tp + fn) * 100:.1f}% от опасных"
+            "TP (True Positive)",
+            f"{tp:,}",
+            f"{tp / (tp + fn) * 100:.1f}% от опасных"
         )
         st.caption("Правильно предсказанные опасные")
 
@@ -371,7 +354,6 @@ def _show_evaluation(y_true, preds):
         )
         st.caption("Пропущенные опасные")
 
-    # Ключевые метрики
     st.markdown("### 🎯 Ключевые показатели")
 
     col1, col2 = st.columns(2)
@@ -395,6 +377,7 @@ def _find_target(df):
     for col in ("hazardous", "is_hazardous", "is_potentially_hazardous_asteroid"):
         if col in df.columns:
             return col
+    return None
     return None
     return None
     return None

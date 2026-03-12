@@ -1,5 +1,5 @@
 import streamlit as st
-from pages import developer_info, dataset_info, visualizations, prediction
+from app_pages import developer_info, dataset_info, visualizations, prediction
 
 st.set_page_config(
     page_title="ML Dashboard — Near Earth Objects",
@@ -18,6 +18,7 @@ st.sidebar.title("☄️ NEO Dashboard")
 st.sidebar.markdown("---")
 selection = st.sidebar.radio("Навигация", list(PAGES.keys()))
 st.sidebar.markdown("---")
-st.sidebar.info("Дашборд для анализа околоземных объектов и предсказания их опасности")
+st.sidebar.info(
+    "Дашборд для анализа околоземных объектов и предсказания их опасности")
 
 PAGES[selection]()
